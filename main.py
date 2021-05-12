@@ -9,13 +9,14 @@ get_value_button = ['//*[@id="submit_isbn"]', '*//div[1]/div[2]/button', '*//div
 get_price_label = ['//*[@id="basketPriceUpdatable"]', '*//div[5]/div/div/div/div/div/p', '*//div[2]/div[1]/span', '*//div[3]/div[1]/label', '*//div[2]/div/span/strong/span']
 tabs = ['0','0','0','0', '//*[@id="pills-media-tab"]/div[2]' ]
 basket = ['0','0','0','0', '*//div[3]/a/em/strong']
-isbn = "9780241988350"
+isbn = ["9780241988350", "9781912047734", "9781786574718", "9789683802415", "9197373044", "9780993181443"]
 
 sleepy = 1
 bt = Scraper()
 prices = []
 trade = {}
 best_price = 0.0
+cart =[]
 
 
 for item in range(0,4):
@@ -26,17 +27,15 @@ for item in range(0,4):
     bt.change_tab(tabs[item])
     time.sleep(sleepy)
 
-    bt.send_isbn(isbn,search_bar[item])
+    bt.send_isbn(isbn[0],search_bar[item])
     time.sleep(sleepy)
 
 
     bt.get_value(get_value_button[item])
-
     time.sleep(sleepy)
     
     
     bt.click_basket(basket[item])
-     
     time.sleep(sleepy)
  
     # Error handling for isbn not in url
@@ -44,7 +43,7 @@ for item in range(0,4):
         price = bt.get_price(get_price_label[item])
     except Exception:
         price = 0.0
-        print('Sorry, this book is not acceptyed by %s' %url[item])
+        print('Sorry, this book is not accepted by %s' %url[item])
     
     prices.append(price)
 
@@ -52,12 +51,15 @@ for item in range(0,4):
         print('deal')
         best_price = prices[item]
         print(best_price)
-        trade = {"best": best_price, "url": url[item], "isbn": isbn}
-
+        trade = {"best": best_price, "url": url[item], "isbn": isbn[0]}
+    
+    
  
+
     bt.driver_close()
     
+cart.append(trade)
 print(prices)
-print (trade)
-#bt.driver_close()
+print (cart)
+
  

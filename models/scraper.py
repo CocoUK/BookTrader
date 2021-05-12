@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time, re
 
@@ -18,8 +18,6 @@ class Scraper:
         self.chrome_options.add_experimental_option("useAutomationExtension", False)
         self.chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
 
-        #self.driver = webdriver.Chrome ("C:/Users/escob/Documents/Projects/WebScrapingExample/chromedriver.exe"
-        #                            , options = chrome_options)
 
     def scrap_web(self,url):
         self.driver = webdriver.Chrome ("C:/Users/escob/Documents/Projects/WebScrapingExample/chromedriver.exe"
