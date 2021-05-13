@@ -10,13 +10,17 @@ class MainScreen(Screen):
     def sign_up(self):
         self.manager.current = "sign_up_screen"
         print("sign up button pressed")
+    
+    def go_to_login(self):
+        self.manager.current ="login_screen"
+
 
 class SignUpScreen(Screen):
     def add_user(self, uname, pword, email):
         with open ('users.json') as file:
            users = json.load(file)
         
-        
+    
         #check if user already exist based on email
         emails=[users["user " +str(i+1)]["email"] for i in range(len(users))]
         if email.text in emails:
@@ -34,7 +38,28 @@ class SignUpScreen(Screen):
                 self.manager.current = "sign_up_screen_success"
 
 class SignUpScreenSuccess(Screen):
-    pass
+    def go_to_login(self):
+        self.manager.current ="login_screen"
+
+class LoginScreen(Screen):
+    def login(self, uname, pword):
+        print(uname, pword)
+
+        with open("users.json") as f:
+            users = json.load(f)
+
+    #check user exist and get user number
+        for i in range(len(users)):
+            username= users["user " +str(i+1)]["username"]
+   
+            if username == uname:      
+                user_no = "user " +str(i+1)
+                print(user_no)
+                break
+
+        #check user password
+        if users[user_no]["password"] == pword:
+            print('login successful')
 
 class RootWidget(ScreenManager):
     pass
