@@ -47,11 +47,17 @@
             id: username
             hint_text: "Username"
         TextInput:
+            id: email
+            hint_text: "E-mail address"
+        TextInput:
             id: password
             hint_text: "Password"
+        Label:
+            id: info
+            text: "Write some info here"
         Button:
             text: "Sign up"
-            on_press: root.add_user(root.ids.username, root.ids.password)
+            on_press: root.add_user(root.ids.username, root.ids.password, root.ids.email)
         
 <SignUpScreenSuccess>:
     GridLayout:
