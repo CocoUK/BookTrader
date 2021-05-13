@@ -12,17 +12,26 @@ class MainScreen(Screen):
         print("sign up button pressed")
 
 class SignUpScreen(Screen):
-    def add_user(self, uname, pword):
+    def add_user(self, uname, pword, email):
         with open ('users.json') as file:
            users = json.load(file)
         
-        users["user 2"] = {"username": uname.text, "password": pword.text}
         
+        #check if user already exist based on email
+        emails=[users["user " +str(i+1)]["email"] for i in range(len(users))]
+        if email.text in emails:
+            print("User already registered")
+            print(email.text)
+            print(emails)
+        else:
+            # assign new user number
+            user_no = "user " + str(len(users)+1)
+            users[user_no] = {"username": uname.text, "email": email.text, "password": pword.text}
 
-
-        with open("users.json", "w") as f:
-            json.dump(users, f)
-        self.manager.current = "sign_up_screen_success"
+            print("New user")
+            with open("users.json", "w") as f:
+                json.dump(users, f)
+                self.manager.current = "sign_up_screen_success"
 
 class SignUpScreenSuccess(Screen):
     pass
