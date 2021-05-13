@@ -8,12 +8,6 @@ class Barcode():
         self.book_code = ""
 
     def scan_code(self):
-        #self.cap = cv2.VideoCapture(0)
-        #cap.set(3,640) #3- width
-        #cap.set(4, 480) #4 -height
-        #camera = True
-        #book_code =""
-
         while self.camera == True:
             success, frame = self.cap.read()
 
@@ -26,11 +20,6 @@ class Barcode():
             if self.book_code != "":
                 self.camera == False        
                 break
-
         
         return self.book_code
 
-qr = Barcode()
-
-a=qr.scan_code()
-print(qr.scan_code())
