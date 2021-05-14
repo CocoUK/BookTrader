@@ -9,8 +9,7 @@ Builder.load_file('design.kv')
 class MainScreen(Screen):
     def sign_up(self):
         self.manager.current = "sign_up_screen"
-        print("sign up button pressed")
-    
+            
     def go_to_login(self):
         self.manager.current ="login_screen"
 
@@ -56,10 +55,53 @@ class LoginScreen(Screen):
                 user_no = "user " +str(i+1)
                 print(user_no)
                 break
+            else:
+                self.ids.login_wrong.text = "User name does not exist"
+                return
 
         #check user password
         if users[user_no]["password"] == pword:
             print('login successful')
+            self.manager.transition.direction = 'right'
+            self.manager.current = "main_screen"
+        else:
+            self.ids.login_wrong.text = "Wrong password"
+            return
+    
+    def sign_up(self):
+        self.manager.current = "sign_up_screen"
+
+    def forgot_password(self):        
+        self.manager.current = "Forgot_password_screen"
+
+class ForgotPwordScreen(Screen):
+    def send_details(self, email):
+        print(email)
+        #open file
+        with open ('users.json') as file:
+           users = json.load(file)
+        
+        #check email exists
+        all_emails=[users["user " +str(i+1)]["email"] for i in range(len(users))]
+
+        #check user exist and get user number
+        if email in all_emails:                  
+            print('We sent you an email with your details')
+            print ('email')
+
+            user_no =  'user ' + str(all_emails.index(email)+1)
+            print(users[user_no]["password"])
+            self.ids.info.text = 'We sent you an email with your details'               
+        else:
+            print('email not recognised')
+            self.ids.info.text = 'email not recognised'
+   
+    def sign_up(self):
+        self.manager.current = "sign_up_screen"
+
+    def go_to_login(self):
+        self.manager.current ="login_screen"
+
 
 class RootWidget(ScreenManager):
     pass

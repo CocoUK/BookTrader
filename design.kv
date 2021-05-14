@@ -70,19 +70,60 @@
             on_press: root.go_to_login()
 
 <LoginScreen>:
+    GridLayout: 
+        cols: 1
+        GridLayout:
+            cols:1
+            Label:
+                text: "Login to take advantage of Coco Book Trade App features"
+            TextInput:
+                id: uname
+                hint_text: "Username"
+            TextInput:
+                id: pword
+                hint_text: "Password"
+            Label:
+                id: login_wrong
+                text: ""
+            Button:
+                text: "Login"
+                on_press: root.login(root.ids.uname.text, root.ids.pword.text)
+        
+        GridLayout:
+            cols:2
+            Button:
+                text: "Forgot password"
+                on_press: root.forgot_password()
+            Button:
+                text: "Sign up"
+                on_press: root.sign_up()
+
+<ForgotPwordScreen>
     GridLayout:
         cols:1
-        Label:
-            text: "Login to take advantage of Coco Book Trade App features"
-        TextInput:
-            id: uname
-            hint_text: "Username"
-        TextInput:
-            id: pword
-            hint_text: "Password"
-        Button:
-            text: "Login"
-            on_press: root.login(root.ids.uname.text, root.ids.pword.text)
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Enter your email address"
+            TextInput:
+                id: email
+                hint_text: "e-mail"
+            Label:
+                id: info
+                text: ""
+            Button:
+                text: "Send me my details"
+                on_press: root.send_details(root.ids.email.text)
+
+            GridLayout:
+                cols:2
+                Button:
+                    text: "Login"
+                    on_press: root.go_to_login()
+                Button:
+                    text: "Signup"
+                    on_press: root.sign_up()
+
 
 <RootWidget>:
     MainScreen:
@@ -93,6 +134,9 @@
         name: "sign_up_screen_success"
     LoginScreen:
         name: "login_screen"
+    ForgotPwordScreen:
+        name: "Forgot_password_screen"
+    
 
 
 
